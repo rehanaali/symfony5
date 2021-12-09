@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>
+        {% if editMode %}
+            Modifier la tâche  "{{ todo.label }}"
+        {% else %}
+            Ajouter une tâche
+        {% endif %}
+    </h1>
+
+    {{ form_start(formulaire) }}
+    <div class="mb-3">
+        {{ form_row(formulaire.label,{'attr':{'palceholder':"Label"}}) }}
+    </div>
+    <div class="mb-3 form-check">
+        {{ form_row(formulaire.completed ,{'attr':{'palceholder':"image de l'article"}}) }}
+    </div>
+    <button type="submit" class="btn btn-primary">
+        Sauvegarder
+    </button>
+    {{ form_end(formulaire) }}
+
+
+{% endblock %}

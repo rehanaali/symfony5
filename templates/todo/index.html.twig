@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}!{% endblock %}
+
+{% block body %}
+
+    <h1>MyTodoList</h1>
+    <h2 class="mb-3">{{ title }}</h2>
+
+
+
+    {% if todos is empty %}
+        <p class="alert alert-secondary">Aucune tâche à faire.</p>
+    {% else %}
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Label</th>
+                <th scope="col" class="text-end">Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for todo_item in todos %}
+
+                <tr>
+
+                    <th class="{% if todo_item.completed==1 %} text-decoration-line-through {% endif %}"
+                        scope="row">{{ todo_item.id }}</th>
+                    <td class="{% if todo_item.completed %} text-decoration-line-through {% endif %}"
+                        scope="row">{{ todo_item.label }}</td>
+                    <td class="text-end">
+                        <a href=" {{ path('edit',{'id':todo_item.id}) }}" class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-pen"></i> Modifier
+                        </a>
+                        <a href="{{ path('toggle_completed', {id:todo_item.id}) }}"
+                           class="btn btn-sm btn-outline-success">
+                            {% if todo_item.completed %}<i class="far fa-check-square"></i> Complétée {% else %} <i
+                                    class="far fa-square"></i> Compléter
+                            {% endif %}
+                        </a>
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+    {% endif %}
+
+
+    <p class="text-end">
+        <a href="{{ path('create') }}" class="btn btn-sm btn-outline-primary">
+            <i class="fas fa-plus"></i>
+            Ajouter une tâche
+        </a>
+        {% if tacheCompleted %}
+            <a href="{{ path('delete_all_completed') }}" class="btn btn-sm btn-outline-danger">
+                <i class="far fa-trash-alt"></i> Supprimer toutes les tâches faites
+            </a>
+        {% endif %}
+    </p>
+
+{% endblock %}
+
+
+
+
